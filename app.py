@@ -16,9 +16,21 @@ def predict(img):
     topk_values, topk_indices = torch.topk(output, 2)  # Get the top 2 classes
     return [str(k) for k in topk_indices[0].tolist()]
 
+with gr.Blocks() as iface:
+    gr.Markdown("# MNIST + Gradio End to End")
+    gr.HTML("Shows end to end MNIST training with Gradio interface")
+    with gr.Row():
+        with gr.Column():
+            sp = gr.Sketchpad(shape=(28, 28))
+            with gr.Row():
+                with gr.Column():
+                    pred_button = gr.Button("Predict")
+                with gr.Column():
+                    clear = gr.Button("Clear")
+        with gr.Column():
+            label1 = gr.Label(label='1st Pred')
+            label2 = gr.Label(label='2nd Pred')
 
-sp = gr.Sketchpad(shape=(28, 28))
-
-gr.Interface(fn=predict,
-             inputs=sp,
-             outputs=['label','label']).launch()
+    pred_button.click(predict, inputs=sp, outputs=[label1,label2])
+    clear.click(lambda: None, None, sp, queue=False)
+iface.launch()
