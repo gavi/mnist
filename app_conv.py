@@ -3,16 +3,20 @@ from PIL import Image
 import numpy as np
 import torch
 import torch.nn as nn
-from models import Net,NetConv
+import torch.nn.functional as F
+from models import NetConv
 
-net = torch.load('mnist.pth')
-net.eval()
+    
+net_conv = torch.load('mnist_conv.pth')
+net_conv.eval()
 
 def predict(img):
     arr = np.array(img) / 255  # Assuming img is in the range [0, 255]
+    arr.reshape(28,28)
+    arr = np.expand_dims(arr, axis=0)  # Add batch dimension
     arr = np.expand_dims(arr, axis=0)  # Add batch dimension
     arr = torch.from_numpy(arr).float()  # Convert to PyTorch tensor
-    output = net(arr)
+    output = net_conv(arr)
     topk_values, topk_indices = torch.topk(output, 2)  # Get the top 2 classes
     return [str(k) for k in topk_indices[0].tolist()]
 

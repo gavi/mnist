@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
-import model
+from models import Net
 # Load the MNIST dataset
 train_set = torchvision.datasets.MNIST(root='./data', train=True,
                                        download=True, transform=transforms.ToTensor())
@@ -17,7 +17,7 @@ test_loader = torch.utils.data.DataLoader(test_set, batch_size=32,
 
 
 
-net = model.Net()
+net = Net()
 
 # Use CrossEntropyLoss for multi-class classification
 criterion = nn.CrossEntropyLoss()
