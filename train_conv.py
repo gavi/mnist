@@ -3,12 +3,13 @@ import torch.nn as nn
 import torch.optim as optim
 from torchvision import datasets, transforms
 from models import NetConv
+import torch.nn.functional as F
 
 
 # Training settings
 batch_size = 64
 test_batch_size = 1000
-epochs = 10
+epochs = 20
 lr = 0.01
 momentum = 0.5
 seed = 1
