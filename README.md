@@ -1,6 +1,6 @@
 ---
 title: MNIST Training + Gradio
-emoji: 🖼️
+emoji: 📝 - 2️⃣
 colorFrom: red
 colorTo: purple
 sdk: gradio
